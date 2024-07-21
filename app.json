@@ -25,5 +25,190 @@
   "author": {
     "name": "Geunwon Mo",
     "email": "mokorean@gmail.com"
-  }
+  },
+  "drivers": [
+    {
+      "id": "zemismart_6gang",
+      "name": {
+        "en": "Zemismart 6gang wall switch"
+      },
+      "class": "socket",
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "zigbee"
+      ],
+      "capabilities": [
+        "onoff"
+      ],
+      "images": {
+        "large": "/drivers/zemismart_6gang/assets/images/large.png",
+        "small": "/drivers/zemismart_6gang/assets/images/small.png"
+      },
+      "energy": {
+        "approximation": {
+          "usageOn": 0,
+          "usageOff": 0
+        }
+      },
+      "zigbee": {
+        "manufacturerName": [
+          "_TZE200_9mahtqtg",
+          "_TZE200_r731zlxk",
+          "_TZE200_5zbp6j0u"
+        ],
+        "productId": [
+          "TS0601"
+        ],
+        "endpoints": {
+          "1": {
+            "clusters": [
+              0,
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "2": {
+            "clusters": [
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "3": {
+            "clusters": [
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "4": {
+            "clusters": [
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "5": {
+            "clusters": [
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          },
+          "6": {
+            "clusters": [
+              4,
+              5,
+              6
+            ],
+            "bindings": [
+              6
+            ]
+          }
+        },
+        "devices": {
+          "secondSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Zemismart 6gang"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "thirdSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Zemismart 6gang"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "fourthSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Zemismart 6gang"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "fifthSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Zemismart 6gang"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          },
+          "sixthSwitch": {
+            "class": "socket",
+            "capabilities": [
+              "onoff"
+            ],
+            "name": {
+              "en": "Zemismart 6gang"
+            },
+            "energy": {
+              "approximation": {
+                "usageOn": 0,
+                "usageOff": 0
+              }
+            }
+          }
+        },
+        "learnmode": {
+          "image": "/drivers/zemismart_6gang/assets/icon.svg",
+          "instruction": {
+            "en": "Six tiles will be created, one for each switch of the device. Press the setup button combined with 1 channel button for 10 seconds (the LED should blink blue)."
+          }
+        }
+      },
+      "settings": []
+    }
+  ]
 }
