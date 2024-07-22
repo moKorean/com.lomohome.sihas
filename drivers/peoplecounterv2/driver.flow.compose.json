@@ -3,7 +3,7 @@
     {
       "id": "set_people_count",
       "title": {
-        "en": "Set People counter manually",
+        "en": "Set People count manually",
         "ko": "재실 인원수 설정"
       },
       "args": [
