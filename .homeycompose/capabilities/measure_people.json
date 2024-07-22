@@ -1,0 +1,9 @@
+{
+  "type": "number",
+  "title": { "en": "People" },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": true,
+  "uiQuickAction": false,
+  "icon": "/drivers/peoplecounterv2/assets/icon.svg"
+}

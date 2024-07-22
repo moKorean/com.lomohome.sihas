@@ -12,8 +12,11 @@
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.6",
     "eslint": "^7.32.0",
-    "eslint-config-athom": "^3.1.3",
+    "eslint-config-athom": "^3.1.3"
+  },
+  "dependencies": {
+    "homey-api": "^3.5.2",
     "homey-zigbeedriver": "^1.6.12",
-    "zigbee-clusters": "^1.8.0"
+    "zigbee-clusters": "^1.5.2"
   }
 }

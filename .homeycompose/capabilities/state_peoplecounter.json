@@ -1,0 +1,14 @@
+{
+  "type": "enum",
+  "values": [
+    { "id": "in", "title": { "en": "In", "ko": "들어옴" } },
+    { "id": "out", "title": { "en": "Out", "ko": "나감" } },
+    { "id": "ready", "title": { "en": "Ready", "ko": "준비" } }
+  ],
+  "title": { "en": "Direction" },
+  "uiComponent": "picker",
+  "getable": true,
+  "setable": true,
+  "uiQuickAction": false,
+  "icon": "/drivers/peoplecounterv2/assets/icon.svg"
+}

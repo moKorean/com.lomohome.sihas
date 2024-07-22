@@ -28,11 +28,11 @@
   },
   "drivers": [
     {
-      "id": "zemismart_6gang",
+      "id": "peoplecounterv2",
       "name": {
-        "en": "Zemismart 6gang wall switch"
+        "en": "SiHAS People Counter (CSM-300Z)"
       },
-      "class": "socket",
+      "class": "sensor",
       "platforms": [
         "local"
       ],
@@ -40,175 +40,118 @@
         "zigbee"
       ],
       "capabilities": [
-        "onoff"
+        "measure_people",
+        "measure_battery",
+        "alarm_battery",
+        "state_peoplecounter",
+        "alarm_motion"
       ],
-      "images": {
-        "large": "/drivers/zemismart_6gang/assets/images/large.png",
-        "small": "/drivers/zemismart_6gang/assets/images/small.png"
-      },
       "energy": {
-        "approximation": {
-          "usageOn": 0,
-          "usageOff": 0
-        }
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "images": {
+        "large": "/drivers/peoplecounterv2/assets/images/large.png",
+        "small": "/drivers/peoplecounterv2/assets/images/small.png"
       },
       "zigbee": {
         "manufacturerName": [
-          "_TZE200_9mahtqtg",
-          "_TZE200_r731zlxk",
-          "_TZE200_5zbp6j0u"
+          "ShinaSystem"
         ],
         "productId": [
-          "TS0601"
+          "CSM-300Z"
         ],
         "endpoints": {
           "1": {
             "clusters": [
               0,
               4,
-              5,
-              6
+              3,
+              1,
+              12
             ],
             "bindings": [
-              6
-            ]
-          },
-          "2": {
-            "clusters": [
+              0,
               4,
-              5,
-              6
-            ],
-            "bindings": [
+              3,
+              25,
               6
             ]
-          },
-          "3": {
-            "clusters": [
-              4,
-              5,
-              6
-            ],
-            "bindings": [
-              6
-            ]
-          },
-          "4": {
-            "clusters": [
-              4,
-              5,
-              6
-            ],
-            "bindings": [
-              6
-            ]
-          },
-          "5": {
-            "clusters": [
-              4,
-              5,
-              6
-            ],
-            "bindings": [
-              6
-            ]
-          },
-          "6": {
-            "clusters": [
-              4,
-              5,
-              6
-            ],
-            "bindings": [
-              6
-            ]
-          }
-        },
-        "devices": {
-          "secondSwitch": {
-            "class": "socket",
-            "capabilities": [
-              "onoff"
-            ],
-            "name": {
-              "en": "Zemismart 6gang"
-            },
-            "energy": {
-              "approximation": {
-                "usageOn": 0,
-                "usageOff": 0
-              }
-            }
-          },
-          "thirdSwitch": {
-            "class": "socket",
-            "capabilities": [
-              "onoff"
-            ],
-            "name": {
-              "en": "Zemismart 6gang"
-            },
-            "energy": {
-              "approximation": {
-                "usageOn": 0,
-                "usageOff": 0
-              }
-            }
-          },
-          "fourthSwitch": {
-            "class": "socket",
-            "capabilities": [
-              "onoff"
-            ],
-            "name": {
-              "en": "Zemismart 6gang"
-            },
-            "energy": {
-              "approximation": {
-                "usageOn": 0,
-                "usageOff": 0
-              }
-            }
-          },
-          "fifthSwitch": {
-            "class": "socket",
-            "capabilities": [
-              "onoff"
-            ],
-            "name": {
-              "en": "Zemismart 6gang"
-            },
-            "energy": {
-              "approximation": {
-                "usageOn": 0,
-                "usageOff": 0
-              }
-            }
-          },
-          "sixthSwitch": {
-            "class": "socket",
-            "capabilities": [
-              "onoff"
-            ],
-            "name": {
-              "en": "Zemismart 6gang"
-            },
-            "energy": {
-              "approximation": {
-                "usageOn": 0,
-                "usageOff": 0
-              }
-            }
           }
         },
         "learnmode": {
-          "image": "/drivers/zemismart_6gang/assets/icon.svg",
+          "image": "/drivers/peoplecounterv2/assets/icon.svg",
           "instruction": {
-            "en": "Six tiles will be created, one for each switch of the device. Press the setup button combined with 1 channel button for 10 seconds (the LED should blink blue)."
+            "en": "Insert a pin into the single hole on the side of the device and press it gently for aprox 5 seconds until the LED blinks rapidly. If the pairing does not start, press the setup button again for 10-15 seconds until the led stops blinking and then try again."
           }
         }
       },
-      "settings": []
+      "settings": [
+        {
+          "id": "batteryThreshold",
+          "type": "number",
+          "label": {
+            "en": "Battery Low Alarm Voltage Threshold (%)"
+          },
+          "hint": {
+            "en": "This setting determines the threshold before a battery alarm is given."
+          },
+          "value": 20,
+          "attr": {
+            "step": 1,
+            "min": 1,
+            "max": 99
+          }
+        }
+      ]
     }
-  ]
+  ],
+  "capabilities": {
+    "measure_people": {
+      "type": "number",
+      "title": {
+        "en": "People"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": true,
+      "uiQuickAction": false,
+      "icon": "/drivers/peoplecounterv2/assets/icon.svg"
+    },
+    "state_peoplecounter": {
+      "type": "enum",
+      "values": [
+        {
+          "id": "in",
+          "title": {
+            "en": "In",
+            "ko": "들어옴"
+          }
+        },
+        {
+          "id": "out",
+          "title": {
+            "en": "Out",
+            "ko": "나감"
+          }
+        },
+        {
+          "id": "ready",
+          "title": {
+            "en": "Ready",
+            "ko": "준비"
+          }
+        }
+      ],
+      "title": {
+        "en": "Direction"
+      },
+      "uiComponent": "picker",
+      "getable": true,
+      "setable": true,
+      "uiQuickAction": false,
+      "icon": "/drivers/peoplecounterv2/assets/icon.svg"
+    }
+  }
 }
