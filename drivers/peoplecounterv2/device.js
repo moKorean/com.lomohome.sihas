@@ -3,7 +3,7 @@
 const { ZigBeeDevice } = require("homey-zigbeedriver");
 const { debug, CLUSTER } = require("zigbee-clusters");
 
-class prople_counter_v2 extends ZigBeeDevice {
+class people_counter_v2 extends ZigBeeDevice {
   async onNodeInit({ zclNode }) {
     this.printNode();
 
@@ -45,6 +45,12 @@ class prople_counter_v2 extends ZigBeeDevice {
       this._updateBattery();
     }
 
+    this._peopleSetFlow = this.homey.flow.getActionCard("set_people_count");
+    this._peopleSetFlow.registerRunListener(async (args, state) => {
+      this.log(`action card received with ${args.people}`);
+      await this.setPeopleValue(args.people);
+    });
+
     this.refresh();
   }
 
@@ -63,8 +69,6 @@ class prople_counter_v2 extends ZigBeeDevice {
       let inoutString = inout === 1 ? "in" : inout === 2 ? "out" : "ready";
       if (inout > 2) inoutString = "out"; // assuming inout > 2 should default to "out"
 
-      const motionActive = pc ? true : false;
-
       let prevInOut = this.getCapabilityValue("state_peoplecounter");
 
       if (inoutString !== "ready" && prevInOut === inoutString) {
@@ -79,13 +83,14 @@ class prople_counter_v2 extends ZigBeeDevice {
       await this.setCapabilityValue("state_peoplecounter", inoutString).catch(
         this.error
       );
-      await this.setCapabilityValue("alarm_motion", motionActive).catch(
+      await this.setCapabilityValue("alarm_motion", pc ? true : false).catch(
         this.error
       );
     }
   }
 
-  async setValue(value) {
+  async setPeopleValue(value) {
+    this.log(`set people to ${value}`);
     await this._analogInput
       .writeAttributes({ presentValue: value })
       .catch(this.error);
@@ -118,8 +123,8 @@ class prople_counter_v2 extends ZigBeeDevice {
   }
 
   onDeleted() {
-    this.log("SiHAS People Counter removed");
+    this.log("SiHAS People Counter V2 removed");
   }
 }
 
-module.exports = prople_counter_v2;
+module.exports = people_counter_v2;

@@ -26,6 +26,35 @@
     "name": "Geunwon Mo",
     "email": "mokorean@gmail.com"
   },
+  "flow": {
+    "actions": [
+      {
+        "id": "set_people_count",
+        "title": {
+          "en": "Set People counter manually",
+          "ko": "재실 인원수 설정"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=peoplecounterv2"
+          },
+          {
+            "type": "number",
+            "name": "people",
+            "placeholder": {
+              "en": "number",
+              "ko": "사람 수"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1
+          }
+        ]
+      }
+    ]
+  },
   "drivers": [
     {
       "id": "peoplecounterv2",
@@ -41,9 +70,9 @@
       ],
       "capabilities": [
         "measure_people",
+        "state_peoplecounter",
         "measure_battery",
         "alarm_battery",
-        "state_peoplecounter",
         "alarm_motion"
       ],
       "energy": {
@@ -115,7 +144,7 @@
       "uiComponent": "sensor",
       "getable": true,
       "setable": true,
-      "uiQuickAction": false,
+      "uiQuickAction": true,
       "icon": "/drivers/peoplecounterv2/assets/icon.svg"
     },
     "state_peoplecounter": {

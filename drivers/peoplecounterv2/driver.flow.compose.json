@@ -1,0 +1,24 @@
+{
+  "actions": [
+    {
+      "id": "set_people_count",
+      "title": {
+        "en": "Set People counter manually",
+        "ko": "재실 인원수 설정"
+      },
+      "args": [
+        {
+          "type": "number",
+          "name": "people",
+          "placeholder": {
+            "en": "number",
+            "ko": "사람 수"
+          },
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ]
+    }
+  ]
+}

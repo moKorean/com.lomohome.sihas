@@ -4,6 +4,6 @@
   "uiComponent": "sensor",
   "getable": true,
   "setable": true,
-  "uiQuickAction": false,
+  "uiQuickAction": true,
   "icon": "/drivers/peoplecounterv2/assets/icon.svg"
 }
