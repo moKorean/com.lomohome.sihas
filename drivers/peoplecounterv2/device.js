@@ -13,9 +13,13 @@ class prople_counter_v2 extends ZigBeeDevice {
     this._analogInput =
       zclNode.endpoints[1].clusters[CLUSTER.ANALOG_INPUT.NAME];
 
+    this._analogInput.on("attr.presentValue", this.refresh.bind(this));
+
+    // 앱의 값이 변경될때. 리스너.
     this.registerCapabilityListener("state_peoplecounter", async (mode) => {
       this.log(`state_listener : ${mode}`);
-      return "ready";
+      this.refresh();
+      return mode;
     });
 
     // measure_battery // alarm_battery
@@ -23,8 +27,6 @@ class prople_counter_v2 extends ZigBeeDevice {
       "attr.batteryPercentageRemaining",
       this.onBatteryPercentageRemainingAttributeReport.bind(this)
     );
-
-    this._analogInput.on("attr.presentValue", this.refresh.bind());
 
     await zclNode.endpoints[1].clusters.basic
       .readAttributes(
@@ -43,13 +45,7 @@ class prople_counter_v2 extends ZigBeeDevice {
       this._updateBattery();
     }
 
-    this._intervalId = setInterval(() => {
-      try {
-        this.refresh();
-      } catch (error) {
-        clearInterval(this._intervalId); // 오류 발생 시 setInterval 멈춤
-      }
-    }, 600);
+    this.refresh();
   }
 
   //Reference
@@ -60,8 +56,6 @@ class prople_counter_v2 extends ZigBeeDevice {
       .readAttributes(["presentValue"])
       .catch(this.error);
     if (attrs) {
-      this.log(`read value = [${attrs.presentValue}]`);
-
       const readVal = attrs.presentValue.toString().split(".");
       const pc = parseFloat(readVal[0]);
       const inout = readVal.length > 1 ? parseInt(readVal[1].charAt(0)) : 0;
@@ -71,12 +65,14 @@ class prople_counter_v2 extends ZigBeeDevice {
 
       const motionActive = pc ? true : false;
 
-      // if (inoutString !== "ready" && prevInOut === inoutString) {
-      // sendEvent({ name: "inOutDir", value: "ready", displayed: true });
-      // }
+      let prevInOut = this.getCapabilityValue("state_peoplecounter");
+
+      if (inoutString !== "ready" && prevInOut === inoutString) {
+        inoutString = "ready";
+      }
 
       this.log(
-        ` [${readVal}] = people: ${pc}, dir: ${inout}, ${inoutString}` //${device.displayName}
+        ` [${attrs.presentValue}] = people: ${pc}, dir: ${inoutString} [${inout}] <- [${prevInOut}]` //${device.displayName}
       );
 
       await this.setCapabilityValue("measure_people", pc).catch(this.error);
