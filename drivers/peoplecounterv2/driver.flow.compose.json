@@ -1,4 +1,17 @@
 {
+  "conditions": [
+    {
+      "id": "get_people",
+      "title": {
+        "en": "There !{{is a|is no}} person",
+        "ko": "사람이 !{{있다|없다}}"
+      },
+      "hint": {
+        "en": "check exist",
+        "ko": "재실중인지 아닌지 확인"
+      }
+    }
+  ],
   "actions": [
     {
       "id": "set_people_count",

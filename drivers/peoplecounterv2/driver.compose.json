@@ -11,6 +11,7 @@
     "state_peoplecounter",
     "measure_battery",
     "alarm_battery",
+    "people_setting",
     "alarm_motion"
   ],
   "energy": {

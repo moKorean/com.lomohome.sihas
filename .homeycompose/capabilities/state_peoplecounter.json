@@ -5,7 +5,7 @@
     { "id": "out", "title": { "en": "Out", "ko": "나감" } },
     { "id": "ready", "title": { "en": "Ready", "ko": "준비" } }
   ],
-  "title": { "en": "Direction" },
+  "title": { "en": "Direction", "ko": "입출입 방향" },
   "uiComponent": "picker",
   "getable": true,
   "setable": true,

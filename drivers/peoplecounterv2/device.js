@@ -22,6 +22,12 @@ class people_counter_v2 extends ZigBeeDevice {
       return mode;
     });
 
+    this.registerCapabilityListener("people_setting", async (value) => {
+      this.log(`people_setting_listener : ${value}`);
+      await this.setPeopleValue(value);
+      return value;
+    });
+
     // measure_battery // alarm_battery
     this._powerConfiguration.on(
       "attr.batteryPercentageRemaining",
@@ -46,10 +52,10 @@ class people_counter_v2 extends ZigBeeDevice {
     }
 
     //사람수 가져오는 Condition 카드
-    // this._peopleCondition = this.homey.flow.getConditionCard("get_people");
-    // this._peopleCondition.registerRunListener(async (args, state) => {
-    //   return this.getCapabilityValue("measure_people");
-    // });
+    this._peopleCondition = this.homey.flow.getConditionCard("get_people");
+    this._peopleCondition.registerRunListener(async (args, state) => {
+      return this.getCapabilityValue("alarm_motion");
+    });
 
     //사람수 수동 세팅 액션 플로우 카드.
     this._peopleSetFlow = this.homey.flow.getActionCard("set_people_count");
@@ -87,6 +93,7 @@ class people_counter_v2 extends ZigBeeDevice {
       );
 
       await this.setCapabilityValue("measure_people", pc).catch(this.error);
+      await this.setCapabilityValue("people_setting", pc).catch(this.error);
       await this.setCapabilityValue("state_peoplecounter", inoutString).catch(
         this.error
       );

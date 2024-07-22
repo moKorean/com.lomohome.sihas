@@ -1,9 +1,12 @@
 {
   "type": "number",
   "title": { "en": "People" },
-  "uiComponent": "sensor",
+  "uiComponent": "slider",
   "getable": true,
   "setable": true,
-  "uiQuickAction": false,
+  "min": 0,
+  "max": 50,
+  "step": 1,
+  "uiQuickAction": true,
   "icon": "/drivers/peoplecounterv2/assets/icon.svg"
 }

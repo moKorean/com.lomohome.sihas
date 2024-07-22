@@ -27,6 +27,26 @@
     "email": "mokorean@gmail.com"
   },
   "flow": {
+    "conditions": [
+      {
+        "id": "get_people",
+        "title": {
+          "en": "There !{{is a|is no}} person",
+          "ko": "사람이 !{{있다|없다}}"
+        },
+        "hint": {
+          "en": "check exist",
+          "ko": "재실중인지 아닌지 확인"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=peoplecounterv2"
+          }
+        ]
+      }
+    ],
     "actions": [
       {
         "id": "set_people_count",
@@ -73,6 +93,7 @@
         "state_peoplecounter",
         "measure_battery",
         "alarm_battery",
+        "people_setting",
         "alarm_motion"
       ],
       "energy": {
@@ -144,6 +165,20 @@
       "uiComponent": "sensor",
       "getable": true,
       "setable": true,
+      "uiQuickAction": false,
+      "icon": "/drivers/peoplecounterv2/assets/icon.svg"
+    },
+    "people_setting": {
+      "type": "number",
+      "title": {
+        "en": "People"
+      },
+      "uiComponent": "slider",
+      "getable": true,
+      "setable": true,
+      "min": 0,
+      "max": 50,
+      "step": 1,
       "uiQuickAction": true,
       "icon": "/drivers/peoplecounterv2/assets/icon.svg"
     },
@@ -173,7 +208,8 @@
         }
       ],
       "title": {
-        "en": "Direction"
+        "en": "Direction",
+        "ko": "입출입 방향"
       },
       "uiComponent": "picker",
       "getable": true,
