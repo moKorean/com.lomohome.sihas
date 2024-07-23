@@ -3,28 +3,20 @@
   "version": "1.0.3",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "platforms": [
-    "local"
-  ],
+  "platforms": ["local"],
   "name": {
     "en": "Sihas Community",
     "ko": "시하스 커뮤니티"
   },
   "brandColor": "#232E73",
   "description": {
-    "en": "Homey pro app for Sihas zigbee things",
-    "ko": "시하스 지그비 제품을 위한 호미 프로 앱"
+    "en": "You can connect Sihas Zigbee devices to Homey Pro.",
+    "ko": "시하스 지그비 제품들을 호미에서 제어하세요."
   },
   "tags": {
-    "en": [
-      "Sihas",
-      "zigbee",
-      "Counter sensor"
-    ]
+    "en": ["Sihas", "zigbee", "Counter sensor"]
   },
-  "category": [
-    "appliances"
-  ],
+  "category": ["appliances"],
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",

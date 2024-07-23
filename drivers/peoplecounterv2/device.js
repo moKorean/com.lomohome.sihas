@@ -52,17 +52,26 @@ class people_counter_v2 extends ZigBeeDevice {
     }
 
     //사람수 가져오는 Condition 카드
-    this._peopleCondition = this.homey.flow.getConditionCard("get_people");
-    this._peopleCondition.registerRunListener(async (args, state) => {
-      return this.getCapabilityValue("alarm_motion");
-    });
+    this.homey.flow
+      .getConditionCard("if_people_above")
+      .registerRunListener(async (args, state) => {
+        return this.getCapabilityValue("measure_people") >= args.people;
+      });
+
+    //재실여부 Condition 카드
+    this.homey.flow
+      .getConditionCard("get_people")
+      .registerRunListener(async (args, state) => {
+        return this.getCapabilityValue("alarm_motion");
+      });
 
     //사람수 수동 세팅 액션 플로우 카드.
-    this._peopleSetFlow = this.homey.flow.getActionCard("set_people_count");
-    this._peopleSetFlow.registerRunListener(async (args, state) => {
-      this.log(`action card received with ${args.people}`);
-      await this.setPeopleValue(args.people);
-    });
+    this.homey.flow
+      .getActionCard("set_people_count")
+      .registerRunListener(async (args, state) => {
+        this.log(`action card received with ${args.people}`);
+        await this.setPeopleValue(args.people);
+      });
 
     this.refresh();
   }

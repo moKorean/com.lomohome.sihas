@@ -11,9 +11,23 @@
         "ko": "사람이 !{{있다|없다}}"
       },
       "hint": {
-        "en": "check exist",
+        "en": "Check for occupancy",
         "ko": "재실중인지 아닌지 확인"
       }
+    },
+    {
+      "id": "if_people_above",
+      "title": "There are more than a certain number of people",
+      "titleFormatted": {
+        "en": "There are !{{more or same|less}} than [[people]] people.",
+        "ko": "사람이 [[people]]명 !{{이상입니다|보다 적습니다}}."
+      },
+      "args": [
+        {
+          "name": "people",
+          "type": "number"
+        }
+      ]
     }
   ],
   "actions": [
