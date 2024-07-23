@@ -1,1 +1,2 @@
-Homey pro app for Sihas zigbee things
+This is a SiHAS Zigbee products driver app for Homey pro that operates locally.
+This currently supports the CSM-300Z (wireless people counter sensor)
