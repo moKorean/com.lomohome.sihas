@@ -8,10 +8,20 @@
     "local"
   ],
   "name": {
-    "en": "Sihas Community"
+    "en": "Sihas Community",
+    "ko": "시하스 커뮤니티"
   },
+  "brandColor": "#232E73",
   "description": {
-    "en": "Homey pro app for Sihas zigbee things"
+    "en": "Homey pro app for Sihas zigbee things",
+    "ko": "시하스 지그비 제품을 위한 호미 프로 앱"
+  },
+  "tags": {
+    "en": [
+      "Sihas",
+      "zigbee",
+      "Counter sensor"
+    ]
   },
   "category": [
     "appliances"
@@ -19,18 +29,26 @@
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
-    "large": "/assets/images/large.png",
-    "xlarge": "/assets/images/xlarge.png"
+    "large": "/assets/images/large.png"
+  },
+  "source": "https://github.com/moKorean/com.lomohome.sihas",
+  "support": "mailto:mokorean+homey@gmail.com",
+  "bugs": {
+    "url": "https://github.com/moKorean/com.lomohome.sihas/issues"
   },
   "author": {
     "name": "Geunwon Mo",
-    "email": "mokorean@gmail.com"
+    "email": "mokorean+homey@gmail.com"
   },
   "flow": {
     "conditions": [
       {
         "id": "get_people",
         "title": {
+          "en": "There !{{is a|is no}} person",
+          "ko": "사람이 !{{있다|없다}}"
+        },
+        "titleFormatted": {
           "en": "There !{{is a|is no}} person",
           "ko": "사람이 !{{있다|없다}}"
         },
@@ -53,6 +71,10 @@
         "title": {
           "en": "Set People count manually",
           "ko": "재실 인원수 설정"
+        },
+        "titleFormatted": {
+          "en": "Set People count to [[people]]",
+          "ko": "재실 인원수 [[people]]명으로 설정"
         },
         "args": [
           {
