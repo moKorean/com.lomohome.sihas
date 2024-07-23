@@ -17,13 +17,13 @@ class people_counter_v2 extends ZigBeeDevice {
 
     // 앱의 값이 변경될때. 리스너.
     this.registerCapabilityListener("state_peoplecounter", async (mode) => {
-      this.log(`state_listener : ${mode}`);
+      this.log(`[${this.getName()}] state_listener : ${mode}`);
       this.refresh();
       return mode;
     });
 
     this.registerCapabilityListener("people_setting", async (value) => {
-      this.log(`people_setting_listener : ${value}`);
+      this.log(`[${this.getName()}] people_setting_listener : ${value}`);
       await this.setPeopleValue(value);
       return value;
     });
@@ -60,14 +60,19 @@ class people_counter_v2 extends ZigBeeDevice {
     this.homey.flow
       .getConditionCard("if_people_above")
       .registerRunListener(async (args, state) => {
-        return this.getCapabilityValue("measure_people") >= args.people;
+        this.log(
+          `[${args.device.getName()}] 'if_people_above' card received with [${
+            args.people
+          }] current [${args.device.getCapabilityValue("measure_people")}]`
+        );
+        return args.device.getCapabilityValue("measure_people") >= args.people;
       });
 
     //재실여부 Condition 카드
     this.homey.flow
       .getConditionCard("get_people")
       .registerRunListener(async (args, state) => {
-        return this.getCapabilityValue("alarm_motion");
+        return args.device.getCapabilityValue("alarm_motion");
       });
 
     //사람수 수동 세팅 액션 플로우 카드.
@@ -75,9 +80,11 @@ class people_counter_v2 extends ZigBeeDevice {
       .getActionCard("set_people_count")
       .registerRunListener(async (args, state) => {
         this.log(
-          `flow action 'set_people_count' card received with ${args.people}`
+          `[${args.device.getName()}] flow action 'set_people_count' card received with ${
+            args.people
+          }`
         );
-        await this.setPeopleValue(args.people);
+        await args.device.setPeopleValue(args.people);
       });
 
     this.refresh();
@@ -95,32 +102,20 @@ class people_counter_v2 extends ZigBeeDevice {
       const pc = parseFloat(readVal[0]);
       const inout = readVal.length > 1 ? parseInt(readVal[1].charAt(0)) : 0;
 
+      let prevInOut = this.getCapabilityValue("state_peoplecounter");
+      let prevCount = this.getCapabilityValue("measure_people");
+
       let inoutString = inout === 1 ? "in" : inout === 2 ? "out" : "ready";
       if (inout > 2) inoutString = "out"; // assuming inout > 2 should default to "out"
 
-      let prevInOut = this.getCapabilityValue("state_peoplecounter");
       if (inoutString !== "ready" && prevInOut === inoutString) {
         inoutString = "ready";
       }
 
-      let prevCount = this.getCapabilityValue("measure_people");
-      if (prevCount != pc) {
-        this.log(`재실 인원수 변경 감지. 이전 ${prevCount} 지금 ${pc}`);
-        try {
-          await this._changeCountTrigger
-            .trigger(this, {
-              people: pc,
-            })
-            .then(this.log)
-            .catch(this.error);
-        } catch (e) {
-          this.log("error on trigger 'people_count_changed' update count", e);
-          return;
-        }
-      }
-
       this.log(
-        ` [${attrs.presentValue}] = people: ${pc}, dir: ${inoutString} [${inout}] <- [${prevInOut}]` //${device.displayName}
+        `[${this.getName()}][${
+          attrs.presentValue
+        }] => people: ${pc}, dir: ${inoutString} [${inout}] <- [${prevInOut}]` //${device.displayName}
       );
 
       await this.setCapabilityValue("measure_people", pc).catch(this.error);
@@ -131,11 +126,30 @@ class people_counter_v2 extends ZigBeeDevice {
       await this.setCapabilityValue("alarm_motion", pc ? true : false).catch(
         this.error
       );
+
+      if (prevCount != pc) {
+        this.log(
+          `[${this.getName()}] 재실 인원수 변경 감지. 이전 ${prevCount} 지금 ${pc}`
+        );
+        try {
+          await this._changeCountTrigger.trigger(this, {
+            people: pc,
+          });
+        } catch (e) {
+          this.log(
+            "[${this.getName()}] error on trigger 'people_count_changed' update count",
+            e
+          );
+          return;
+        }
+      }
+
+      this.log(`[${this.getName()}][REFRESH][SUCCESS] COUNT = ${pc}`);
     }
   }
 
   async setPeopleValue(value) {
-    this.log(`set people to ${value}`);
+    this.log(`[${this.getName()}] set people to ${value}`);
     await this._analogInput
       .writeAttributes({ presentValue: value })
       .catch(this.error);
@@ -158,7 +172,7 @@ class people_counter_v2 extends ZigBeeDevice {
   ) {
     const batteryThreshold = this.getSetting("batteryThreshold") || 20;
     this.log(
-      "measure_battery | powerConfiguration - batteryPercentageRemaining (%): ",
+      `[${this.getName()}] measure_battery | powerConfiguration - batteryPercentageRemaining (%): `,
       batteryPercentageRemaining / 2
     );
     this.setCapabilityValue("measure_battery", batteryPercentageRemaining / 2);
@@ -169,7 +183,7 @@ class people_counter_v2 extends ZigBeeDevice {
   }
 
   onDeleted() {
-    this.log("SiHAS People Counter V2 removed");
+    this.log(`SiHAS People Counter V2 [${this.getName()}] removed`);
   }
 }
 
