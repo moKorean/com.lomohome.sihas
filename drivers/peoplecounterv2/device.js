@@ -51,6 +51,11 @@ class people_counter_v2 extends ZigBeeDevice {
       this._updateBattery();
     }
 
+    //인원이 변경될때 트리거 카드
+    this._changeCountTrigger = this.homey.flow.getDeviceTriggerCard(
+      "people_count_changed"
+    );
+
     //사람수 가져오는 Condition 카드
     this.homey.flow
       .getConditionCard("if_people_above")
@@ -69,7 +74,9 @@ class people_counter_v2 extends ZigBeeDevice {
     this.homey.flow
       .getActionCard("set_people_count")
       .registerRunListener(async (args, state) => {
-        this.log(`action card received with ${args.people}`);
+        this.log(
+          `flow action 'set_people_count' card received with ${args.people}`
+        );
         await this.setPeopleValue(args.people);
       });
 
@@ -92,9 +99,24 @@ class people_counter_v2 extends ZigBeeDevice {
       if (inout > 2) inoutString = "out"; // assuming inout > 2 should default to "out"
 
       let prevInOut = this.getCapabilityValue("state_peoplecounter");
-
       if (inoutString !== "ready" && prevInOut === inoutString) {
         inoutString = "ready";
+      }
+
+      let prevCount = this.getCapabilityValue("measure_people");
+      if (prevCount != pc) {
+        this.log(`재실 인원수 변경 감지. 이전 ${prevCount} 지금 ${pc}`);
+        try {
+          await this._changeCountTrigger
+            .trigger(this, {
+              people: pc,
+            })
+            .then(this.log)
+            .catch(this.error);
+        } catch (e) {
+          this.log("error on trigger 'people_count_changed' update count", e);
+          return;
+        }
       }
 
       this.log(
@@ -117,6 +139,7 @@ class people_counter_v2 extends ZigBeeDevice {
     await this._analogInput
       .writeAttributes({ presentValue: value })
       .catch(this.error);
+    this.refresh();
   }
 
   async _updateBattery() {

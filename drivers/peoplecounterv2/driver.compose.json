@@ -31,9 +31,10 @@
       }
     },
     "learnmode": {
-      "image": "{{driverAssetsPath}}/icon.svg",
+      "image": "{{driverAssetsPath}}/learn.svg",
       "instruction": {
-        "en": "Press CFG Button for 3 seconds."
+        "en": "Press CFG Button for 3 seconds.",
+        "ko": "장치 측면의  CFG 버튼을 3초간 길게 눌러 페어링 모드로 진입합니다. (적색 녹색 교차 점멸)"
       }
     }
   }

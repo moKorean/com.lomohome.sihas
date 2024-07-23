@@ -41,6 +41,36 @@
     "email": "mokorean+homey@gmail.com"
   },
   "flow": {
+    "triggers": [
+      {
+        "id": "people_count_changed",
+        "title": {
+          "en": "Detect changes in the number of people",
+          "ko": "인원수 변경 감지"
+        },
+        "titleFormatted": {
+          "en": "Detect changes in the number of people",
+          "ko": "인원수 변경 감지"
+        },
+        "tokens": [
+          {
+            "name": "people",
+            "type": "number",
+            "title": {
+              "en": "People count",
+              "ko": "인원 수"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=peoplecounterv2"
+          }
+        ]
+      }
+    ],
     "conditions": [
       {
         "id": "get_people",
@@ -171,9 +201,10 @@
           }
         },
         "learnmode": {
-          "image": "/drivers/peoplecounterv2/assets/icon.svg",
+          "image": "/drivers/peoplecounterv2/assets/learn.svg",
           "instruction": {
-            "en": "Press CFG Button for 3 seconds."
+            "en": "Press CFG Button for 3 seconds.",
+            "ko": "장치 측면의  CFG 버튼을 3초간 길게 눌러 페어링 모드로 진입합니다. (적색 녹색 교차 점멸)"
           }
         }
       },
@@ -214,7 +245,8 @@
     "people_setting": {
       "type": "number",
       "title": {
-        "en": "People"
+        "en": "People",
+        "ko": "인원"
       },
       "uiComponent": "slider",
       "getable": true,

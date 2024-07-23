@@ -1,4 +1,27 @@
 {
+  "triggers": [
+    {
+      "id": "people_count_changed",
+      "title": {
+        "en": "Detect changes in the number of people",
+        "ko": "인원수 변경 감지"
+      },
+      "titleFormatted": {
+        "en": "Detect changes in the number of people",
+        "ko": "인원수 변경 감지"
+      },
+      "tokens": [
+        {
+          "name": "people",
+          "type": "number",
+          "title": {
+            "en": "People count",
+            "ko": "인원 수"
+          }
+        }
+      ]
+    }
+  ],
   "conditions": [
     {
       "id": "get_people",

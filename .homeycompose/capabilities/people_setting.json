@@ -1,6 +1,6 @@
 {
   "type": "number",
-  "title": { "en": "People" },
+  "title": { "en": "People", "ko": "인원" },
   "uiComponent": "slider",
   "getable": true,
   "setable": true,
