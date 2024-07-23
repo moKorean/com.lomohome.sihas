@@ -160,12 +160,14 @@
     "measure_people": {
       "type": "number",
       "title": {
-        "en": "People"
+        "en": "People",
+        "ko": "인원"
       },
       "uiComponent": "sensor",
       "getable": true,
       "setable": true,
       "uiQuickAction": false,
+      "insights": true,
       "icon": "/drivers/peoplecounterv2/assets/icon.svg"
     },
     "people_setting": {
