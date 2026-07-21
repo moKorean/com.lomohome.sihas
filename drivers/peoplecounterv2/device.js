@@ -98,6 +98,11 @@ class people_counter_v2 extends ZigBeeDevice {
       .readAttributes(["presentValue"])
       .catch(this.error);
     if (attrs) {
+      // presentValue가 없으면(읽기 실패/미보고) 처리 불가 → 스킵.
+      // 단, 0(재실 0명)은 유효한 값이므로 null/undefined만 걸러낸다.
+      if (attrs.presentValue == null) {
+        return;
+      }
       const readVal = attrs.presentValue.toString().split(".");
       const pc = parseFloat(readVal[0]);
       const inout = readVal.length > 1 ? parseInt(readVal[1].charAt(0)) : 0;
@@ -137,7 +142,7 @@ class people_counter_v2 extends ZigBeeDevice {
           });
         } catch (e) {
           this.log(
-            "[${this.getName()}] error on trigger 'people_count_changed' update count",
+            `[${this.getName()}] error on trigger 'people_count_changed' update count`,
             e
           );
           return;

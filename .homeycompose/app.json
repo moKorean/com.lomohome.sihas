@@ -1,6 +1,6 @@
 {
   "id": "com.lomohome.sihas",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
@@ -12,8 +12,8 @@
   },
   "brandColor": "#232E73",
   "description": {
-    "en": "You can connect Sihas Zigbee devices to Homey Pro.",
-    "ko": "시하스 지그비 제품들을 호미에서 제어하세요."
+    "en": "Count people and sense presence with SiHAS smart sensors.",
+    "ko": "시하스 스마트 센서로 인원 수와 재실을 실시간으로."
   },
   "tags": {
     "en": [

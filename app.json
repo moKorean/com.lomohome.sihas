@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.lomohome.sihas",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
@@ -13,8 +13,8 @@
   },
   "brandColor": "#232E73",
   "description": {
-    "en": "You can connect Sihas Zigbee devices to Homey Pro.",
-    "ko": "시하스 지그비 제품들을 호미에서 제어하세요."
+    "en": "Count people and sense presence with SiHAS smart sensors.",
+    "ko": "시하스 스마트 센서로 인원 수와 재실을 실시간으로."
   },
   "tags": {
     "en": [
@@ -203,7 +203,7 @@
         "learnmode": {
           "image": "/drivers/peoplecounterv2/assets/learn.svg",
           "instruction": {
-            "en": "Press CFG Button for 3 seconds.",
+            "en": "Press and hold the CFG button on the side of the device for 3 seconds to enter pairing mode (red and green lights will flash alternately).",
             "ko": "장치 측면의  CFG 버튼을 3초간 길게 눌러 페어링 모드로 진입합니다. (적색 녹색 교차 점멸)"
           }
         }
@@ -213,10 +213,12 @@
           "id": "batteryThreshold",
           "type": "number",
           "label": {
-            "en": "Battery Low Alarm Voltage Threshold (%)"
+            "en": "Battery Low Alarm Voltage Threshold (%)",
+            "ko": "배터리 저하 경고 받을 지점 (%)"
           },
           "hint": {
-            "en": "This setting determines the threshold before a battery alarm is given."
+            "en": "This setting determines the threshold before a battery alarm is given.",
+            "ko": "이 세팅으로 배터리 부족 알람을 받을 수치를 정할 수 있습니다."
           },
           "value": 20,
           "attr": {
