@@ -16,5 +16,8 @@
   },
   "1.0.6": {
     "en": "Multiple devices bugs fixed"
+  },
+  "1.0.7": {
+    "en": "Fixed a crash that could stop the people counter from updating, and improved stability. Added Korean translations."
   }
 }
